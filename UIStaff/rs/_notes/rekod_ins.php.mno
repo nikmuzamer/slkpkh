@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_rsUser" value="name:f142idakaun;datatype:int,name:f142noIC;datatype:string,name:f142nostaf;datatype:string,name:f142password;datatype:string,name:f142email;datatype:string,name:f142Name;datatype:string,name:f142idlevel;datatype:int,name:f142photo;datatype:string,name:f142ipadd;datatype:string,name:f142thupdate;datatype:date,name:f142updateby;datatype:string,name:f142catatan;datatype:string" />
+	<infoitem key="UD_rsPetugas" value="name:NOIC;datatype:string,name:NAMA;datatype:string" />
+	<infoitem key="UD_rsKategoriSurat" value="name:categoryID;datatype:int,name:categoryCode;datatype:int,name:categoryDescription;datatype:string" />
+	<infoitem key="UD_StatusSurat" value="name:statusID;datatype:int,name:statusCode;datatype:int,name:statusDescription;datatype:string" />
+	<infoitem key="UD_rsStatusSurat" value="name:statusID;datatype:int,name:statusCode;datatype:int,name:statusDescription;datatype:string" />
+</info>

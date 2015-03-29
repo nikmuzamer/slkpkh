@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_rssubjek" value="name:f109kdakademik;datatype:int,name:f109kdsubjek;datatype:string,name:f109singkatan;datatype:string,name:f109keterangan;datatype:string,name:f109kdupu;datatype:string,name:f109thcreate;datatype:datetime" />
+	<infoitem key="UD_rskdbahasa" value="name:f109kdbahasa;datatype:string,name:f109desc;datatype:string" />
+	<infoitem key="UD_rsBangsa" value="name:f109IDbangsa;datatype:int,name:f109id;datatype:int,name:f109kod;datatype:string,name:f109desc;datatype:string,name:f109kdmohe;datatype:string,name:f109hrmis;datatype:string" />
+	<infoitem key="UD_tsBahasa" value="name:f109IDbahasa;datatype:int,name:f109kdbahasa;datatype:string,name:f109desc;datatype:string" />
+	<infoitem key="UD_rsperingkat" value="name:f109kdperingkat;datatype:string,name:f109keterangan;datatype:string" />
+	<infoitem key="UD_rsUser" value="name:f142idakaun;datatype:int,name:f142username;datatype:string,name:f142password;datatype:string,name:f142email;datatype:string,name:f142Name;datatype:string,name:f142noIC;datatype:string,name:f142soalan;datatype:string,name:f142jawapan;datatype:string,name:f142idrole;datatype:int,name:f142idlevel;datatype:int,name:f142photo;datatype:string,name:f142catatan;datatype:string,name:f142thupdate;datatype:datetime,name:f142updateby;datatype:string,name:f142createby;datatype:string,name:f142ipadd;datatype:string" />
+	<infoitem key="UD_rsMohonJawatan" value="name:mohonID;datatype:int,name:recordID;datatype:int,name:username;datatype:string,name:jawatanID;datatype:int,name:jawatanDesc;datatype:string,name:jawatanGred;datatype:string,name:jaw_kategori;datatype:string,name:bidang;datatype:string,name:fakulti;datatype:string" />
+	<infoitem key="UD_rsKodBahasa" value="name:f109IDbahasa;datatype:int,name:f109kdbahasa;datatype:string,name:f109desc;datatype:string" />
+	<infoitem key="UD_rsKemahiranBahasa" value="name:f108kemahiranbahasaID;datatype:int,name:f108username;datatype:string,name:f108id;datatype:string,name:f108bahasa;datatype:string,name:f108tahapPertuturan;datatype:string,name:f108tahapPenulisan;datatype:string" />
+	<infoitem key="UD_rsBahasa" value="name:f108kemahiranbahasaID;datatype:int,name:f108username;datatype:string,name:f108id;datatype:string,name:f108bahasa;datatype:string,name:f108tahapPertuturan;datatype:string,name:f108tahapPenulisan;datatype:string,name:f109IDbahasa;datatype:int,name:f109kdbahasa;datatype:string,name:f109desc;datatype:string" />
+	<infoitem key="UD_rsPengalamanTambahan" value="name:f104PengalamanID;datatype:int,name:f104username;datatype:string,name:f104tajuk;datatype:blob,name:f104bidang;datatype:blob,name:f104penyelidikan;datatype:blob" />
+</info>

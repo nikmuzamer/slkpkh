@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_rsJawatan" value="name:f109jawatanID;datatype:int,name:f109jawKod;datatype:string,name:f109jawDesc;datatype:string,name:f109jawGred;datatype:string,name:f109jawStatus;datatype:int,name:f109displayStatus;datatype:int,name:f109hyperlink;datatype:blob" />
+	<infoitem key="UD_rsKatJawatan" value="name:f109jawatanID;datatype:int,name:f109jawKod;datatype:string,name:f109jawDesc;datatype:string,name:f109jawGred;datatype:string,name:f109jawStatus;datatype:int,name:f109displayStatus;datatype:int,name:f109hyperlink;datatype:blob" />
+</info>

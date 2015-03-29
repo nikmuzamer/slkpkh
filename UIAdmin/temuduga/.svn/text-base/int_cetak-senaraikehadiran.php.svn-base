@@ -1,0 +1,622 @@
+<?php require_once('../../Connections/sqlconn.php'); ?>
+<?php include("../../Common/common-topmenu.php"); ?>
+<?php
+if (!isset($_SESSION)) {
+  session_start();
+}
+$MM_authorizedUsers = "1";
+$MM_donotCheckaccess = "false";
+
+// *** Restrict Access To Page: Grant or deny access to this page
+function isAuthorized($strUsers, $strGroups, $UserName, $UserGroup) { 
+  // For security, start by assuming the visitor is NOT authorized. 
+  $isValid = False; 
+
+  // When a visitor has logged into this site, the Session variable MM_Username set equal to their username. 
+  // Therefore, we know that a user is NOT logged in if that Session variable is blank. 
+  if (!empty($UserName)) { 
+    // Besides being logged in, you may restrict access to only certain users based on an ID established when they login. 
+    // Parse the strings into arrays. 
+    $arrUsers = Explode(",", $strUsers); 
+    $arrGroups = Explode(",", $strGroups); 
+    if (in_array($UserName, $arrUsers)) { 
+      $isValid = true; 
+    } 
+    // Or, you may restrict access to only certain users based on their username. 
+    if (in_array($UserGroup, $arrGroups)) { 
+      $isValid = true; 
+    } 
+    if (($strUsers == "") && false) { 
+      $isValid = true; 
+    } 
+  } 
+  return $isValid; 
+}
+
+$MM_restrictGoTo = "../../Administrator/noaccess.php";
+if (!((isset($_SESSION['MM_Username'])) && (isAuthorized("",$MM_authorizedUsers, $_SESSION['MM_Username'], $_SESSION['MM_UserGroup'])))) {   
+  $MM_qsChar = "?";
+  $MM_referrer = $_SERVER['PHP_SELF'];
+  if (strpos($MM_restrictGoTo, "?")) $MM_qsChar = "&";
+  if (isset($_SERVER['QUERY_STRING']) && strlen($_SERVER['QUERY_STRING']) > 0) 
+  $MM_referrer .= "?" . $_SERVER['QUERY_STRING'];
+  $MM_restrictGoTo = $MM_restrictGoTo. $MM_qsChar . "accesscheck=" . urlencode($MM_referrer);
+  header("Location: ". $MM_restrictGoTo); 
+  exit;
+}
+?>
+<?php
+if (!function_exists("GetSQLValueString")) {
+function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
+{
+  if (PHP_VERSION < 6) {
+    $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
+  }
+
+  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+
+  switch ($theType) {
+    case "text":
+      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
+      break;    
+    case "long":
+    case "int":
+      $theValue = ($theValue != "") ? intval($theValue) : "NULL";
+      break;
+    case "double":
+      $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
+      break;
+    case "date":
+      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
+      break;
+    case "defined":
+      $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
+      break;
+  }
+  return $theValue;
+}
+}
+
+$colname_rsCalon = "-1";
+if (isset($_GET['JAWKOD'])) {
+  $colname_rsCalon = $_GET['JAWKOD'];
+}
+mysql_select_db($database_sqlconn, $sqlconn);
+$query_rsCalon = sprintf("SELECT a.f101nama,a.f101noic,a.f101status_calon,b.f109jawDesc,b.f109jawGred FROM t101temuduga a, t109kod_jawatan b WHERE a.f101kodjawatan=b.f109jawKod AND f101kodjawatan = %s order by a.f101nama", GetSQLValueString($colname_rsCalon, "text"));
+$rsCalon = mysql_query($query_rsCalon, $sqlconn) or die(mysql_error());
+$row_rsCalon = mysql_fetch_assoc($rsCalon);
+$totalRows_rsCalon = mysql_num_rows($rsCalon);
+
+$colname_rsTemuduga = "-1";
+if (isset($_GET['JAWKOD'])) {
+  $colname_rsTemuduga = $_GET['JAWKOD'];
+}
+mysql_select_db($database_sqlconn, $sqlconn);
+$query_rsTemuduga = sprintf("select a.f101semak_tarikh AS TARIKH,a.f101semak_masa AS MASA,b.ALAMAT_TEMPAT AS TEMPAT from t101temuduga a, t109kod_semaktempat b  where  a.f101semak_tempat=b.TEMPAT and a.f101kodjawatan=%s LIMIT 1 ", GetSQLValueString($colname_rsTemuduga, "text"));
+$rsTemuduga = mysql_query($query_rsTemuduga, $sqlconn) or die(mysql_error());
+$row_rsTemuduga = mysql_fetch_assoc($rsTemuduga);
+$totalRows_rsTemuduga = mysql_num_rows($rsTemuduga);
+
+/*$colname_esUser = "-1";
+if (isset($_SESSION['f142username'])) {
+  $colname_esUser = $_SESSION['f142username'];
+}*/
+//Carry Username and User Level
+$username = $_SESSION['MM_Username'];
+$userlevel = $_SESSION['MM_UserGroup'];
+
+$colname_rsUser = "-1";
+if (isset($_SESSION['MM_Username'])) {
+  $colname_rsUser = $_SESSION['MM_Username'];
+}
+mysql_select_db($database_sqlconn, $sqlconn);
+$query_rsUser = sprintf("SELECT * FROM t142_akaun WHERE f142noIC = %s", GetSQLValueString($colname_rsUser, "text"));
+$rsUser = mysql_query($query_rsUser, $sqlconn) or die(mysql_error());
+$row_rsUser = mysql_fetch_assoc($rsUser);
+$totalRows_rsUser = "-1";
+if (isset($_GET['icno'])) {
+  $totalRows_rsUser = $_GET['icno'];
+}
+
+/*$colname_rsUser = "-1";
+if (isset($_SESSION['colname'])) {
+  $colname_rsUser = $_SESSION['colname'];
+}*/
+
+//Carry Username and User Level
+$username = $_SESSION['MM_Username'];
+$userlevel = $_SESSION['MM_UserGroup'];
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+Design by Free CSS Templates
+http://ptmk.upnm.edu.my/
+Released for free under a Creative Commons Attribution 2.5 License
+
+Name       : Condition 
+Description: A two-column, fixed-width design for 1024x768 screen resolutions.
+Version    : 1.0
+Released   : 20100103
+
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Sistem Pengurusan E-Mail, Universiti Pertahanan Nasional Malaysia</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link href="../../Administrator/Common/style-red.css" rel="stylesheet" type="text/css" media="screen" />
+<style type="text/css">
+<!--
+body,td,th {
+	color: #000;
+}
+#page #page-bgtop table tr td .post .entry #frmPeribadi table {
+	text-align: center;
+	font-size: 12px;
+}
+.BIGTITLE {
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 24px;
+	font-weight: bold;
+	text-transform: uppercase;
+	text-align: center;
+	vertical-align: middle;
+}
+#page #page-bgtop table tr td .post .entry #frmPeribadi table tr td table {
+	text-align: center;
+}
+#page #page-bgtop table tr td .post .entry #frmPeribadi table tr td table {
+	font-weight: bold;
+	font-size: 12px;
+}
+.tengah {
+	text-align: center;
+	vertical-align: middle;
+}
+#page #page-bgtop table tr td .post .entry #frmPeribadi table tr td strong {
+	font-size: 10px;
+}
+#page #page-bgtop table tr td .post .entry #frmPeribadi table tr td table {
+	font-size: 10px;
+}
+.tajukBrg {
+	font-size: 18px;
+	font-weight: bold;
+	color: #059FE6;
+}
+.tajuklbrg {	font-size: 18px;
+	font-weight: bold;
+	color: #000;
+}
+.bigjawatan {
+	font-size: 14px;
+}
+-->
+</style>
+<script language="JavaScript" type="text/JavaScript">
+		function cetak()
+		{
+				window.print();
+		}
+		function validate_logout()
+		{
+			if (confirm("Anda pasti? "))
+   			{
+     			return true;
+    		}
+    		else
+    		{
+      			return false;
+    		} 	
+		}
+		function validate(frmPeribadi) 
+		{
+			if (frmPeribadi.listwarganegara.value == "---Sila Pilih---")
+			{
+				alert("Sila isikan maklumat yang bertanda bintang");
+				frmPeribadi.listwarganegara.focus();
+				return false;	
+			}
+			
+			if (frmPeribadi.listbangsa.value == "---Sila Pilih---")
+			{
+				alert("Sila isikan maklumat yang bertanda bintang");
+				frmPeribadi.listbangsa.focus();
+				return false;	
+			}
+			
+			
+			if (frmPeribadi.listagama.value == "---Sila Pilih---")
+			{
+				alert("Sila isikan maklumat yang bertanda bintang");
+				frmPeribadi.listagama.focus();
+				return false;	
+			}
+			
+			if (frmPeribadi.txtposkod.value == "")
+			{
+				alert("Sila isikan maklumat yang bertanda bintang");
+				frmPeribadi.txtposkod.focus();
+				return false;	
+			}
+			
+			if (frmPeribadi.listnlahir2.value == "---Sila Pilih---")
+			{
+				alert("Sila isikan maklumat yang bertanda bintang");
+				frmPeribadi.listnlahir2.focus();
+				return false;	
+			}
+			
+			if (frmPeribadi.listkahwin.value == "---Sila Pilih---")
+			{
+				alert("Sila isikan maklumat yang bertanda bintang");
+				frmPeribadi.listkahwin.focus();
+				return false;	
+			}
+			
+			if (frmPeribadi.listjantina.value == "---Sila Pilih---")
+			{
+				alert("Sila isikan maklumat yang bertanda bintang");
+				frmPeribadi.listjantina.focus();
+				return false;	
+			}
+			
+			
+			
+		}
+</script>
+<SCRIPT language=javascript>
+<!--
+<!-- Begin  //place these scripts within BODY tag if you are using IE 4.0 or below.
+//****************************************************************************
+// PopCalendar 3.30, Emailware(please mail&commend me if u like it)
+// Originally coded by Liming(Victor) Weng, email: victorwon@netease.com
+// Release date: 2000.3.7
+// Anyone may modify it to satify his needs, but please leave this comment ahead.
+//****************************************************************************
+
+var gdCtrl = new Object();
+var goSelectTag = new Array();
+var gcGray = "#808080";
+var gcToggle = "#ffff00";
+var gcBG = "#cccccc";
+
+var gdCurDate = new Date();
+var giYear = gdCurDate.getFullYear();
+var giMonth = gdCurDate.getMonth()+1;
+var giDay = gdCurDate.getDate();
+
+function fSetDate(iYear, iMonth, iDay){
+  VicPopCal.style.visibility = "hidden";
+  gdCtrl.value = iDay+"/"+iMonth+"/"+iYear; //Here, you could modify the locale as you need !!!!
+  for (i in goSelectTag)
+  	goSelectTag[i].style.visibility = "visible";
+  goSelectTag.length = 0;
+}
+
+function fSetSelected(aCell){
+  var iOffset = 0;
+  var iYear = parseInt(tbSelYear.value);
+  var iMonth = parseInt(tbSelMonth.value);
+
+  self.event.cancelBubble = true;
+  aCell.bgColor = gcBG;
+  with (aCell.children["cellText"]){
+  	var iDay = parseInt(innerText);
+  	if (color==gcGray)
+		iOffset = (Victor<10)?-1:1;
+	iMonth += iOffset;
+	if (iMonth<1) {
+		iYear--;
+		iMonth = 12;
+	}else if (iMonth>12){
+		iYear++;
+		iMonth = 1;
+	}
+  }
+  fSetDate(iYear, iMonth, iDay);
+}
+
+function Point(iX, iY){
+	this.x = iX;
+	this.y = iY;
+}
+
+function fBuildCal(iYear, iMonth) {
+  var aMonth=new Array();
+  for(i=1;i<7;i++)
+  	aMonth[i]=new Array(i);
+
+  var dCalDate=new Date(iYear, iMonth-1, 1);
+  var iDayOfFirst=dCalDate.getDay();
+  var iDaysInMonth=new Date(iYear, iMonth, 0).getDate();
+  var iOffsetLast=new Date(iYear, iMonth-1, 0).getDate()-iDayOfFirst+1;
+  var iDate = 1;
+  var iNext = 1;
+
+  for (d = 0; d < 7; d++)
+	aMonth[1][d] = (d<iDayOfFirst)?-(iOffsetLast+d):iDate++;
+  for (w = 2; w < 7; w++)
+  	for (d = 0; d < 7; d++)
+		aMonth[w][d] = (iDate<=iDaysInMonth)?iDate++:-(iNext++);
+  return aMonth;
+}
+
+function fDrawCal(iYear, iMonth, iCellHeight, iDateTextSize) {
+  var WeekDay = new Array("Sun","Mon","Tue","Wed","Thu","Fri","Sat");
+  var styleTD = " bgcolor='"+gcBG+"' bordercolor='"+gcBG+"' valign='middle' align='center' height='"+iCellHeight+"' style='font:bold "+iDateTextSize+" verdana;";            //Coded by Liming Weng(Victor Won)  email:victorwon@netease.com
+
+  with (document) {
+	write("<tr>");
+	for(i=0; i<7; i++)
+		write("<td "+styleTD+"color:#990099' >" + WeekDay[i] + "</td>");
+	write("</tr>");
+
+  	for (w = 1; w < 7; w++) {
+		write("<tr>");
+		for (d = 0; d < 7; d++) {
+			write("<td id=calCell "+styleTD+"cursor:hand;' onMouseOver='this.bgColor=gcToggle' onMouseOut='this.bgColor=gcBG' onclick='fSetSelected(this)'>");
+			write("<font id=cellText Victor='Liming Weng'> </font>");
+			write("</td>")
+		}
+		write("</tr>");
+	}
+  }
+}
+
+function fUpdateCal(iYear, iMonth) {
+  myMonth = fBuildCal(iYear, iMonth);
+  var i = 0;
+  for (w = 0; w < 6; w++)
+	for (d = 0; d < 7; d++)
+		with (cellText[(7*w)+d]) {
+			Victor = i++;
+			if (myMonth[w+1][d]<0) {
+				color = gcGray;
+				innerText = -myMonth[w+1][d];
+			}else{
+				color = ((d==0)||(d==6))?"red":"black";
+				innerText = myMonth[w+1][d];
+			}
+		}
+}
+
+function fSetYearMon(iYear, iMon){
+  tbSelMonth.options[iMon-1].selected = true;
+  for (i = 0; i < tbSelYear.length; i++)
+	if (tbSelYear.options[i].value == iYear)
+		tbSelYear.options[i].selected = true;
+  fUpdateCal(iYear, iMon);
+}
+
+function fPrevMonth(){
+  var iMon = tbSelMonth.value;
+  var iYear = tbSelYear.value;
+
+  if (--iMon<1) {
+	  iMon = 12;
+	  iYear--;
+  }
+
+  fSetYearMon(iYear, iMon);
+}
+
+function fNextMonth(){
+  var iMon = tbSelMonth.value;
+  var iYear = tbSelYear.value;
+
+  if (++iMon>12) {
+	  iMon = 1;
+	  iYear++;
+  }
+
+  fSetYearMon(iYear, iMon);
+}
+
+function fToggleTags(){
+  with (document.all.tags("SELECT")){
+ 	for (i=0; i<length; i++)
+ 		if ((item(i).Victor!="Won")&&fTagInBound(item(i))){
+ 			item(i).style.visibility = "hidden";
+ 			goSelectTag[goSelectTag.length] = item(i);
+ 		}
+  }
+}
+
+function fTagInBound(aTag){
+  with (VicPopCal.style){
+  	var l = parseInt(left);
+  	var t = parseInt(top);
+  	var r = l+parseInt(width);
+  	var b = t+parseInt(height);
+	var ptLT = fGetXY(aTag);
+	return !((ptLT.x>r)||(ptLT.x+aTag.offsetWidth<l)||(ptLT.y>b)||(ptLT.y+aTag.offsetHeight<t));
+  }
+}
+
+function fGetXY(aTag){
+  var oTmp = aTag;
+  var pt = new Point(0,0);
+  do {
+  	pt.x += oTmp.offsetLeft;
+  	pt.y += oTmp.offsetTop;
+  	oTmp = oTmp.offsetParent;
+  } while(oTmp.tagName!="BODY");
+  return pt;
+}
+
+// Main: popCtrl is the widget beyond which you want this calendar to appear;
+//       dateCtrl is the widget into which you want to put the selected date.
+// i.e.: <input type="text" name="dc" style="text-align:center" readonly><INPUT type="button" value="V" onclick="fPopCalendar(dc,dc);return false">
+function fPopCalendar(popCtrl, dateCtrl){
+  gdCtrl = dateCtrl;
+  fSetYearMon(giYear, giMonth);
+  var point = fGetXY(popCtrl);
+  with (VicPopCal.style) {
+  	left = point.x;
+	top  = point.y+popCtrl.offsetHeight+1;
+	width = VicPopCal.offsetWidth;
+	height = VicPopCal.offsetHeight;
+	fToggleTags(point);
+	visibility = 'visible';
+  }
+  VicPopCal.focus();
+}
+
+function fHideCal(){
+  var oE = window.event;
+  if ((oE.clientX>0)&&(oE.clientY>0)&&(oE.clientX<document.body.clientWidth)&&(oE.clientY<document.body.clientHeight)) {
+	var oTmp = document.elementFromPoint(oE.clientX,oE.clientY);
+	while ((oTmp.tagName!="BODY") && (oTmp.id!="VicPopCal"))
+		oTmp = oTmp.offsetParent;
+	if (oTmp.id=="VicPopCal")
+		return;
+  }
+  VicPopCal.style.visibility = 'hidden';
+  for (i in goSelectTag)
+	goSelectTag[i].style.visibility = "visible";
+  goSelectTag.length = 0;
+}
+
+var gMonths = new Array("January","February","March","April","May","June","July","August","September","October","November","December");
+
+with (document) {
+write("<DIV id='VicPopCal' onblur='fHideCal()' onclick='focus()' style='POSITION:absolute;visibility:hidden;border:1px ridge;height:10;width:10;z-index:100;'>");
+write("<table border='0' bgcolor='#6699cc'>");
+write("<TR>");
+write("<td valign='middle' align='center'><input type='button' name='PrevMonth' value='<' style='height:20;width:20;FONT:16 Fixedsys' onClick='fPrevMonth()' onblur='fHideCal()'>");
+write("&nbsp;&nbsp;<select name='tbSelMonth' onChange='fUpdateCal(tbSelYear.value, tbSelMonth.value)' Victor='Won' onclick='self.event.cancelBubble=true' onblur='fHideCal()'>");
+for (i=0; i<12; i++)
+	write("<option value='"+(i+1)+"'>"+gMonths[i]+"</option>");
+write("</SELECT>");
+write("&nbsp;&nbsp;<SELECT name='tbSelYear' onChange='fUpdateCal(tbSelYear.value, tbSelMonth.value)' Victor='Won' onclick='self.event.cancelBubble=true' onblur='fHideCal()'>");
+for(i=1940;i<2015;i++)
+	write("<OPTION value='"+i+"'>&nbsp;&nbsp;"+i+"&nbsp;&nbsp;</OPTION>");
+write("</SELECT>");
+write("&nbsp;&nbsp;<input type='button' name='PrevMonth' value='>' style='height:20;width:20;FONT:16 Fixedsys' onclick='fNextMonth()' onblur='fHideCal()'>");
+write("</td>");
+write("</TR><TR>");
+write("<td align='center'>");
+write("<DIV style='background-color:teal;'><table width='100%' height='100%' border='0'>");
+fDrawCal(giYear, giMonth, 10, 11);
+write("</table></DIV>");
+write("</td>");
+write("</TR><TR><TD align='center'>");
+write("<font face=Verdana size=1><B style='cursor:hand' onclick='fSetDate(giYear,giMonth,giDay); self.event.cancelBubble=true' onMouseOver='this.style.color=gcToggle' onMouseOut='this.style.color=0'>Today:&nbsp;&nbsp;"+gMonths[giMonth-1]+"&nbsp;"+giDay+",&nbsp;&nbsp;"+giYear+"</B></font>");
+write("</TD></TR>");write("</TD></TR>");
+write("</TABLE></Div>");
+}
+// End -- Coded by Liming Weng, email: victorwon@netease.com -->
+
+function MM_goToURL() { //v3.0
+  var i, args=MM_goToURL.arguments; document.MM_returnValue = false;
+  for (i=0; i<(args.length-1); i+=2) eval(args[i]+".location='"+args[i+1]+"'");
+}
+//-->
+</SCRIPT>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35150695-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</head>
+<body>
+<hr />
+	<div id="page">
+	<div id="page-bgtop">
+	  <table width="800" height="100%" border="0" align="center" cellspacing="0">
+	    <tr>
+	      <td width="139" align="center" bgcolor="#FFFFFF"><img src="../../images/logotip.jpg" alt="" width="138" height="150" /></td>
+	      <td width="657" align="left" bgcolor="#FFFFFF" class="BIGTITLE">     <span class="tajuklbrg">UNIVERSITI PERTAHANAN NASIONAL MALAYSIA<br />
+          Kem Sungai Besi, 57000 Kuala Lumpur, Malaysia.   		</span></td>
+        </tr>
+	    <tr>
+	      <td colspan="2" align="center" bgcolor="#FFFFFF"><hr /></td>
+        </tr>
+	    <tr>
+	      <td colspan="2" bgcolor="#FFFFFF"><div class="post">
+	        <div class="entry">
+	          <form id="frmPeribadi" method="post">
+	            <table width="100%" border="0">
+	              <tr>
+	                <td bgcolor="#CCCCCC"><span class="tajuklbrg">Senarai Kehadiran Temuduga Bagi Jawatan <?php echo $row_rsCalon['f109jawDesc']; ?> <?php echo $row_rsCalon['f109jawGred']; ?></span></td>
+                  </tr>
+	              <tr>
+	                <td><table width="100%" border="0" align="center">
+	                  <tr>
+	                    <td width="333" align="right"><span class="tajuklbrg">Tarikh :</span></td>
+	                    <td width="449" align="left"><span class="tajuklbrg"><?php echo $row_rsTemuduga['TARIKH']; ?></span></td>
+	                    </tr>
+	                  <tr>
+	                    <td align="right"><span class="tajuklbrg">Masa :</span></td>
+	                    <td align="left"><span class="tajuklbrg"><?php echo $row_rsTemuduga['MASA']; ?></span></td>
+	                    </tr>
+	                  <tr>
+	                    <td align="right"><span class="tajuklbrg">Tempat :</span></td>
+	                    <td align="left"><span class="tajuklbrg"><?php echo $row_rsTemuduga['TEMPAT']; ?></span></td>
+	                    </tr>
+                    </table></td>
+                  </tr>
+	              <tr>
+	                <td>&nbsp;</td>
+                  </tr>
+	              <tr>
+	                <td height="180" align="center" valign="top"><table width="100%" border="1">
+	                  <tr>
+	                    <td width="41%" height="25" bgcolor="#CCCCCC"><span class="tajuklbrg">Nama Calon</span></td>
+	                    <td width="19%" bgcolor="#CCCCCC"><span class="tajuklbrg">No KP</span></td>
+	                    <td width="27%" bgcolor="#CCCCCC"><span class="tajuklbrg">Status </span></td>
+	                    <td width="13%" bgcolor="#CCCCCC"><span class="tajuklbrg">Tandatangan</span></td>
+	                    </tr>
+	                   <?php do { ?>
+                      <tr>
+	                      <td align="left"><span class="tajuklbrg"><?php echo $row_rsCalon['f101nama']; ?></span></td>
+	                      <td><span class="tajuklbrg"><?php echo $row_rsCalon['f101noic']; ?></span></td>
+	                      <td height="40"><span class="tajuklbrg">
+						  <?php echo $row_rsCalon['f101status_calon']; ?></span></td>
+	                      <td height="40"><span class="tajuklbrg"></span></td>
+                      </tr>
+                      <?php } while ($row_rsCalon = mysql_fetch_assoc($rsCalon)); ?>
+                    </table></td>
+                  </tr>
+	              <tr>
+	                <td height="26"><a href="#" onclick="return cetak()">Cetak Sekarang</a></td>
+                  </tr>
+                </table>
+              </form>
+            </div>
+          </div></td>
+        </tr>
+      </table>
+<div id="content"></div>
+		<!-- end #content -->
+	  <div style="clear: both;">&nbsp;</div>
+	</div>
+	</div>
+	<!-- end #page -->
+	<div id="footer-bgcontent">
+	<div id="footer">
+		<p align="center">Hakcipta (c) 2011 ptmk.upnm.edu.my. Hakcipta terpelihara. Dibangunkan oleh Pusat Teknologi maklumat &amp; komunikasi.<br />
+	    Universiti Pertahanan Nasional Malaysia</p>
+	</div>
+	</div>
+	<!-- end #footer -->
+</div>
+
+
+</body>
+</html>
+<?php
+mysql_free_result($rsCalon);
+
+mysql_free_result($rsTemuduga);
+?>

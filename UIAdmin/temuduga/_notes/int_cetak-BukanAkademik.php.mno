@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_rsBangsa" value="name:f109IDbangsa;datatype:int,name:f109id;datatype:int,name:f109kod;datatype:string,name:f109desc;datatype:string" />
+	<infoitem key="UD_rswarganegara" value="name:f109wargaid;datatype:int,name:f109kdwarga;datatype:string,name:f109keterangan;datatype:string" />
+	<infoitem key="UD_rsagama" value="name:f761agama;datatype:int,name:f761id;datatype:int,name:f761kod;datatype:string,name:f761desc;datatype:string" />
+	<infoitem key="UD_rsnlahir" value="name:f109IDnegeri;datatype:int,name:f109kdnegeri;datatype:string,name:f109keterangan;datatype:string" />
+	<infoitem key="UD_rskahwin" value="name:f109id;datatype:int,name:f109kod;datatype:string,name:f109desc;datatype:string" />
+	<infoitem key="UD_rsjantina" value="name:f109id;datatype:int,name:f109kod;datatype:string,name:f109desc;datatype:string" />
+	<infoitem key="UD_rslykAkad" value="name:t111kelayakanAkademikID;datatype:int,name:t111username;datatype:string,name:t111institusi;datatype:string,name:t111thnMula;datatype:string,name:t111thnAkhir;datatype:string,name:t111jenisSijil;datatype:string,name:t111NamaSijil;datatype:string,name:t111Gred;datatype:string,name:t111tarikhKurnia;datatype:string,name:f109layakID;datatype:int,name:f109id;datatype:string,name:f109kod;datatype:string,name:f109desc;datatype:string" />
+</info>

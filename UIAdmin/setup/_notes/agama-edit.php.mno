@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_rsUser" value="name:f142idakaun;datatype:int,name:f142username;datatype:string,name:f142password;datatype:string,name:f142email;datatype:string,name:f142Name;datatype:string,name:f142noIC;datatype:string,name:f142soalan;datatype:string,name:f142jawapan;datatype:string,name:f142idrole;datatype:int,name:f142idlevel;datatype:int,name:f142photo;datatype:string,name:f142catatan;datatype:string,name:f142thupdate;datatype:datetime,name:f142updateby;datatype:string,name:f142createby;datatype:string,name:f142ipadd;datatype:string" />
+	<infoitem key="UD_rsAgama" value="name:f761agama;datatype:int,name:f761id;datatype:int,name:f761kod;datatype:string,name:f761desc;datatype:string,name:f761descbi;datatype:string,name:f761kdmohe;datatype:string,name:f109hrmis;datatype:string" />
+</info>

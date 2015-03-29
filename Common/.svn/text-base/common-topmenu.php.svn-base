@@ -1,0 +1,183 @@
+<?php
+/* 	MENU PUBLIC
+	current item - utama)//current item - utama
+*/
+function menupublic_utama()
+{
+	echo "<li class='current_page_item'><a href='index.php'>Utama</a></li>";
+	echo "<li><a href='login.php'>Login</a>";
+	echo "<li><a href='bantuan.php'>Soalan Lazim</a></li>";
+}
+function menupublic_login()
+{
+	echo "<li><a href='index.php'>Utama</a></li>";
+	echo "<li class='current_page_item'><a href='login.php'>Login</a>";
+	echo "<li><a href='bantuan.php'>Soalan Lazim</a></li>";
+}
+function menupublic_faq()
+{
+	echo "<li><a href='index.php'>Utama</a></li>";
+	echo "<li><a href='login.php'>Login</a>";
+	echo "<li class='current_page_item'><a href='bantuan.php'>Soalan Lazim</a></li>";
+}
+/*-------------------------------------------------------------------------------------*/
+/* 	MENU ADMIN
+	current item - utama
+*/
+function menuadmin()
+{
+	echo "<li class='current_page_item'><a href='desktop-admin.php'>Utama</a></li>";
+	echo "<li><a href='profile/profile.php'>Profail</a>";
+	echo "<li><a href='setup/setup.php'>Setup</a></li>";
+	echo "<li><a href='tapisan/t_tapisan.php'>Tapisan</a></li>";
+	echo "<li><a href='temuduga/int_temuduga.php'>Temuduga</a></li>";
+}
+/* 	MENU ADMIN
+	current item - profile
+*/
+function menuadmin_profile()
+{
+	echo "<li><a href='../desktop-admin.php'>Utama</a></li>";
+	echo "<li class='current_page_item'><a href='../profile/profile.php'>Profail</a>";
+	echo "<li><a href='../setup/setup.php'>Setup</a></li>";
+	echo "<li><a href='../tapisan/t_tapisan.php'>Tapisan</a></li>";
+	echo "<li><a href='../temuduga/int_temuduga.php'>Temuduga</a></li>";
+}
+/* 	MENU ADMIN
+	current item - setup
+*/
+function menuadmin_setup()
+{
+	echo "<li><a href='../desktop-admin.php'>Utama</a></li>";
+	echo "<li><a href='../profile/profile.php'>Profail</a>";
+	echo "<li class='current_page_item'><a href='../setup/setup.php'>Setup</a></li>";
+	echo "<li><a href='../tapisan/t_tapisan.php'>Tapisan</a></li>";
+	echo "<li><a href='../temuduga/int_temuduga.php'>Temuduga</a></li>";
+}
+/* 	MENU ADMIN
+	current item - tapisan
+*/
+function menuadmin_tapisan()
+{
+	echo "<li><a href='../desktop-admin.php'>Utama</a></li>";
+	echo "<li><a href='../profile/profile.php'>Profail</a>";
+	echo "<li><a href='../setup/setup.php'>Setup</a></li>";
+	echo "<li class='current_page_item'><a href='../tapisan/t_tapisan.php'>Tapisan</a></li>";
+	echo "<li><a href='../temuduga/int_temuduga.php'>Temuduga</a></li>";
+}
+/* 	MENU ADMIN
+	current item - temuduga
+*/
+function menuadmin_temuduga()
+{
+	echo "<li><a href='../desktop-admin.php'>Utama</a></li>";
+	echo "<li><a href='../profile/profile.php'>Profail</a>";
+	echo "<li><a href='../setup/setup.php'>Setup</a></li>";
+	echo "<li><a href='../tapisan/t_tapisan.php'>Tapisan</a></li>";
+	echo "<li class='current_page_item'><a href='../temuduga/int_temuduga.php'>Temuduga</a></li>";
+}
+/*-------------------------------------------------------------------------------------*/
+
+
+/*-------------------------------------------------------------------------------------*/
+/* 	MENU PENGURUS
+	current item - utama
+*/
+function menupengurus()
+{
+	echo "<li class='current_page_item'><a href='desktop-manager.php'>Utama</a></li>";
+	echo "<li><a href='profile/profile.php'>Profail</a>";
+	echo "<li><a href='temuduga/int_temuduga.php'>Admin</a></li>";
+}
+/* 	MENU PENGURUS
+	current item - profile
+*/
+function menupengurus_profile()
+{
+	echo "<li><a href='../desktop-manager.php'>Utama</a></li>";
+	echo "<li class='current_page_item'><a href='../profile/profile.php'>Profail</a>";
+	echo "<li><a href='../temuduga/int_temuduga.php'>Admin</a></li>";
+}
+/* 	MENU PENGURUS
+	current item - setup
+*/
+function menupengurus_setup()
+{
+	echo "<li><a href='../desktop-manager.php'>Utama</a></li>";
+	echo "<li><a href='../profile/profile.php'>Profail</a>";
+	echo "<li><a href='../temuduga/int_temuduga.php'>Admin</a></li>";
+}
+/* 	MENU PENGURUS
+	current item - tapisan
+*/
+function menupengurus_tapisan()
+{
+	echo "<li><a href='../desktop-manager.php'>Utama</a></li>";
+	echo "<li><a href='../profile/profile.php'>Profail</a>";
+	echo "<li><a href='../temuduga/int_temuduga.php'>Admin</a></li>";
+}
+/* 	MENU PENGURUS
+	current item - temuduga
+*/
+function menupengurus_temuduga()
+{
+	echo "<li><a href='../desktop-manager.php'>Utama</a></li>";
+	echo "<li><a href='../profile/profile.php'>Profail</a>";
+	echo "<li class='current_page_item'><a href='../temuduga/int_temuduga.php'>Admin</a></li>";
+}
+/* 	MENU PENGGUNA
+	current item - Utama
+*/
+function menupengguna()
+{
+	echo "<li class='current_page_item'><a href='desktop-user.php'>Utama</a></li>";
+	echo "<li><a href='application/apply.php'>Mohon</a></li>";
+	//echo "<li><a href='resume/resume.php'>Status</a></li>";
+	echo "<li><a href='cetak/cetak.php'>Cetak</a></li>";
+	echo "<li><a href='profile/profile.php'>Profail</a></li>";
+}
+/* 	MENU PENGGUNA
+	current item - Mohon
+*/
+function menupengguna_mohon()
+{
+	echo "<li><a href='../desktop-user.php'>Utama</a></li>";
+	echo "<li class='current_page_item'><a href='../application/apply.php'>Mohon</a></li>";
+	//echo "<li><a href='../resume/resume.php'>Status</a></li>";
+	echo "<li><a href='../cetak/cetak.php'>Cetak</a></li>";
+	echo "<li><a href='../profile/profile.php'>Profail</a></li>";
+}
+/* 	MENU PENGGUNA
+	current item - status
+*/
+function menupengguna_status()
+{
+	echo "<li><a href='../desktop-user.php'>Utama</a></li>";
+	echo "<li><a href='../application/apply.php'>Mohon</a></li>";
+	//echo "<li class='current_page_item'><a href='../resume/resume.php'>Status</a></li>";
+	echo "<li><a href='../cetak/cetak.php'>Cetak</a></li>";
+	echo "<li><a href='../profile/profile.php'>Profail</a></li>";
+}
+/* 	MENU PENGGUNA
+	current item - cetak
+*/
+function menupengguna_cetak()
+{
+	echo "<li><a href='../desktop-user.php'>Utama</a></li>";
+	echo "<li><a href='../application/apply.php'>Mohon</a></li>";
+	//echo "<li><a href='../resume/resume.php'>Status</a></li>";
+	echo "<li class='current_page_item'><a href='../cetak/cetak.php'>Cetak</a></li>";
+	echo "<li><a href='../profile/profile.php'>Profail</a></li>";
+}
+/* 	MENU PENGGUNA
+	current item - profail
+*/
+function menupengguna_profail()
+{
+	echo "<li><a href='../desktop-user.php'>Utama</a></li>";
+	echo "<li><a href='../application/apply.php'>Mohon</a></li>";
+	//echo "<li><a href='../resume/resume.php'>Status</a></li>";
+	echo "<li><a href='../cetak/cetak.php'>Cetak</a></li>";
+	echo "<li class='current_page_item'><a href='../profile/profile.php'>Profail</a></li>";
+}
+?>

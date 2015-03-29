@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_rsLevel" value="name:f140idlevel;datatype:int,name:f140level;datatype:int,name:f140penerangan;datatype:string,name:f140catatan;datatype:string,name:f140thupdate;datatype:datetime,name:f140updateby;datatype:string,name:f140createby;datatype:string,name:f140ipadd;datatype:string" />
+	<infoitem key="UD_rsGlobal" value="name:globalID;datatype:int,name:appsName;datatype:blob,name:appsFooter1;datatype:blob,name:appsFooter2;datatype:blob,name:appsPageCreated;datatype:blob" />
+</info>

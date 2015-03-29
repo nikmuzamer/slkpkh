@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_rsUser" value="name:f142idakaun;datatype:int,name:f142noIC;datatype:string,name:f142nostaf;datatype:string,name:f142password;datatype:string,name:f142email;datatype:string,name:f142Name;datatype:string,name:f142idlevel;datatype:int,name:f142photo;datatype:string,name:f142ipadd;datatype:string,name:f142thupdate;datatype:date,name:f142updateby;datatype:string,name:f142catatan;datatype:string" />
+	<infoitem key="UD_rsSurat" value="name:f100_IDSurat;datatype:int,name:f100_description;datatype:string,name:f100_status;datatype:int,name:f100_category;datatype:int,name:f100_noic_duty;datatype:string,name:f100_date;datatype:date,name:f100_datesubmit;datatype:date,name:f100_attachment;datatype:string,name:f100_sender;datatype:string,name:f100_receiver;datatype:string,name:f100_remarks;datatype:string,name:f100_dateupdate;datatype:datetime,name:f100_updateby;datatype:string,name:f100_ipaddress;datatype:string" />
+	<infoitem key="UD_rsStatus" value="name:statusID;datatype:int,name:statusCode;datatype:int,name:statusDescription;datatype:string" />
+	<infoitem key="UD_slcStatus" value="name:statusID;datatype:int,name:statusCode;datatype:int,name:statusDescription;datatype:string" />
+	<infoitem key="UD_StatusSurat" value="name:statusID;datatype:int,name:statusCode;datatype:int,name:statusDescription;datatype:string" />
+	<infoitem key="UD_rsStatusSurat" value="name:statusID;datatype:int,name:statusCode;datatype:int,name:statusDescription;datatype:string" />
+</info>

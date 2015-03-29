@@ -1,0 +1,196 @@
+<?php require_once('Connections/sqlconn.php'); ?>
+<?php include('Connections/conn-common.php'); ?>
+<?php include('Common/common.php'); ?>
+<?php include("Common/common-topmenu.php"); ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+Design by Free CSS Templates
+http://ptmk.upnm.edu.my/
+Released for free under a Creative Commons Attribution 2.5 License
+
+Name       : Condition 
+Description: A two-column, fixed-width design for 1024x768 screen resolutions.
+Version    : 1.0
+Released   : 20100103
+
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>Sistem Pengurusan E-Mail, Universiti Pertahanan Nasional Malaysia</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link href="Common/style-blue.css" rel="stylesheet" type="text/css" media="screen" />
+
+<script src="SpryAssets/SpryValidationTextField.js" type="text/javascript"></script>
+<script language="JavaScript" type="text/JavaScript">
+function validate_login(frmLogin) 
+		{
+			if (document.frmLogin.txtICNo.value == "")
+			{
+				alert("Sila masukkan ID Pengguna!");
+   			    frmLogin.txtICNo.focus();
+				return false;
+			}	
+	
+			if (document.frmLogin.txtPassword.value == "")
+			{
+				alert("Sila masukkan Katalaluan!");
+				frmLogin.txtPassword.focus();
+				return false;
+			}	
+		}
+</script>
+
+<link href="SpryAssets/SpryValidationTextField.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35150695-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</head>
+<body>
+<div id="wrapper">
+	<div id="logo">
+		<h1>&nbsp;</h1>
+</div>
+	<hr />
+	<!-- end #logo -->
+	<div id="header">
+	  <div id="menu">
+	    <ul>
+	      <?php menupublic_utama(); ?>
+        </ul>
+      </div>
+	  <!-- end #menu -->
+	  <div id="search">
+	    <form method="get" action="">
+	      <fieldset>
+          </fieldset>
+        </form>
+      </div>
+	  <!-- end #search -->
+  </div>
+	<!-- end #header -->
+	<!-- end #header-wrapper -->
+	<div id="page">
+	<div id="page-bgtop">
+		<div id="content">
+			<div class="post">
+				<h2 class="title">[E-Mail] Modul Lupa Katalaluan</h2>
+				<p class="meta">Kemaskini terakhir pada  
+				  <!-- #BeginDate format:fcSw1a -->Tuesday, 8 January, 2013 12:37 PM<!-- #EndDate -->
+                  <br />
+				<!--<SCRIPT LANGUAGE="JAVASCRIPT" type="text/javascript" src="JS/close.js" ></SCRIPT> -->
+                </p>
+				<div class="entry">
+					
+				<?
+                //Connection ke Pangkalan Data
+                _dbConnect();
+                
+                // value sent from form
+                $email_to=$_POST['txtEmail'];
+                
+                // table name
+                $tbl_name=t142_akaun;
+                
+                // retrieve password from table where e-mail = $email_to(qfirdaus@gmail)
+                $sql="SELECT f142password,f142noIC FROM $tbl_name WHERE f142email='$email_to'";
+                $result=mysql_query($sql);
+                
+                // if found this e-mail address, row must be 1 row. keep value in variable name "$count"
+                $count=mysql_num_rows($result);
+                
+                // compare if $count =1 row
+                if($count==1)
+				{
+                	$rows=mysql_fetch_array($result);
+                
+	                // keep password in $your_password
+					$icno = $rows['f142noIC'];
+					
+					//Generate Random Password and Send to Email
+					$genpass=generateRandpassword();
+					
+					$updategenpass=md5($genpass);
+					
+					//Update Newly Generate Password
+					mysql_query("UPDATE $tbl_name SET f142password = '$updategenpass' WHERE f142email = '$email_to' AND f142noIC = '$icno'");
+					               
+	                // ---------------- SEND MAIL FORM ----------------
+    	            // send e-mail to ...
+        	        $to=$email_to;
+                
+            	    // Your subject
+                	$subject="[LUPA KATALALUAN]Universiti Pertahanan Nasional Malaysia";
+                
+                	// From
+                	$header="from: infradc@upnm.edu.my";
+                
+                	// Your message
+					$messages=  "Salam 1 Malaysia\r\n\n";
+                	//$messages.= "Katalaluan untuk login ke sistem e-recruitment UPNM \r\n";
+                	$messages.= "Katalaluan baru anda ialah: $genpass \r\n";
+                	$messages.= "Sila login semula menggunakan Kata Laluan Baru di http://email.upnm.edu.my/login.php \r\n\n";
+					$messages.= "Sistem Administrator E-Recruitment \r\n";
+                	//$messages.="more message... \r\n";
+                
+                	// send email
+                  	ini_set('SMTP', 'mail.upnm.edu.my');
+                  	$sentmail = mail($to,$subject,$messages,$header);
+                }
+                // else if $count not equal 1
+                else { echo "Tiada rekod bagi email yang dimasukkan "; }
+                
+				// if your email succesfully sent
+                if($sentmail){ echo "Katalaluan baru telah dihantar ke emel anda. \nSila semak INBOX email bagi mendapatkan katalaluan baru. \nSekiranya masih tidak menerima email, pastikan juga anda menyemak folder JUNK/SPAM.\n Terima kasih";}
+                else { echo "Penghantaran katalaluan ke emel yang dimasukkan tidak berjaya";}
+                ?>
+              </div><br />
+            Teruskan ke <a href="login.php">login</a></div>
+	  </div>
+		<!-- end #content -->
+		<div id="sidebar">
+		  <ul>
+		    <li>
+		      <h2>Menu</h2>
+		      <ul>
+		        <!--<li><a href="Semakantemuduga/semakanstatus.php"><img src="images/baru.gif" alt="" width="25" height="10" /> Semak Status Temuduga</a></li>-->
+		        <!--<li><a href="cara-pohon.php"><img src="images/baru.gif" alt="" width="25" height="10" /></a> 
+<a href="syarat/Iklanjawatan2011.pdf" target="_blank">Permohonan Jawatan</a></li>-->
+		        <!--<li><a href="Semakanberjaya/semakanstatus.php"><img src="images/baru.gif" alt="" width="25" height="10" /> Semak Berjaya Temuduga</a></li>-->
+		        <li><a href="aliranproses.php">Aliran Proses </a></li>
+		        <li><a href="cara-pohon.php">Kaedah Permohonan</a></li>
+		        <li><a href="Docs/manual.pdf" target="_blank"> <img src="images/help.png" alt="" width="16" height="16" /> Manual Pengguna</a></li>
+	          </ul>
+		      <!-- Histats.com  END  -->
+	        </li>
+	      </ul>
+	  </div>
+		<div style="clear: both;">&nbsp;</div>
+	</div>
+	</div>
+	<!-- end #page -->
+	<div id="footer-bgcontent">
+	<div id="footer">
+    
+		<p>Hakcipta (c) 2011 ptmk.upnm.edu.my. Hakcipta terpelihara. Dibangunkan oleh Pusat Teknologi maklumat &amp; komunikasi.<br />Universiti Pertahanan Nasional Malaysia</p>
+	</div>
+	</div>
+    
+	<!-- end #footer -->
+</div>
+<script src="http://cdn.wibiya.com/Toolbars/dir_0781/Toolbar_781680/Loader_781680.js" type="text/javascript"></script>
+<script type="text/javascript">var _cmo = {form: '4d9ef09163b3d34f2200e573', text: 'Hubungi', align: 'left', valign: 'top', lang: 'en', background_color: '#003C68'}; (function() {var cms = document.createElement('script'); cms.type = 'text/javascript'; cms.async = true; cms.src = ('https:' == document.location.protocol ? 'https://d1uwd25yvxu96k.cloudfront.net' : 'http://static.contactme.com') + '/widgets/tab/v1/tab.js'; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(cms, s);})();</script>
+
+</body>
+</html>

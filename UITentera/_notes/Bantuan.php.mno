@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_rsBangsa" value="name:t109id;datatype:int,name:t109kod;datatype:string,name:t109desc;datatype:string,name:t109singkat;datatype:string,name:t109descbi;datatype:string,name:t109kategori;datatype:string,name:t109kdmohe;datatype:string" />
+	<infoitem key="UD_rsUser" value="name:f142idakaun;datatype:int,name:f142username;datatype:string,name:f142password;datatype:string,name:f142email;datatype:string,name:f142Name;datatype:string,name:f142soalan;datatype:string,name:f142jawapan;datatype:string,name:f142idrole;datatype:int,name:f142idlevel;datatype:int,name:f142catatan;datatype:string,name:f142thupdate;datatype:datetime,name:f142updateby;datatype:string,name:f142createby;datatype:string,name:f142ipadd;datatype:string" />
+	<infoitem key="UD_rsakademik" value="name:f101nobil;datatype:int,name:f101id;datatype:string,name:f101nopkj;datatype:int,name:f101kdlayak;datatype:int,name:f101kdsubjek;datatype:string,name:f101gred;datatype:string,name:f101catatan;datatype:string,name:f101thupdate;datatype:datetime,name:f101updateby;datatype:string,name:f101createby;datatype:string,name:f101ipadd;datatype:string,name:f101statuspohon;datatype:string,name:f101lengkap;datatype:string" />
+	<infoitem key="UD_rslayak" value="name:f109id;datatype:string,name:f109kod;datatype:string,name:f109desc;datatype:string,name:f109singkat;datatype:string,name:f109descbi;datatype:string,name:f109kategori;datatype:string,name:f109kdmohe;datatype:string" />
+	<infoitem key="UD_rsperingkat" value="name:f109kdperingkat;datatype:string,name:f109keterangan;datatype:string" />
+</info>

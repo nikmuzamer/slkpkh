@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_rsTotalPemohon" value="name:totalrecord;datatype:int" />
+	<infoitem key="UD_rsTotalAkademik" value="name:totalakademik;datatype:int" />
+	<infoitem key="UD_rsTotalBukanAkademik" value="name:totalbukanakademik;datatype:int" />
+</info>

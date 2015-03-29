@@ -1,0 +1,34 @@
+<?php
+/* function _dbConnect()
+{
+	$host = "172.16.9.53";
+	$username = "uasw";
+    $password = "uaswdb";
+	$link = mysql_pconnect($host,$username,$password);
+	if (!link)
+	{
+		die ("Could not connect");
+	}
+	$db_selected = mysql_select_db('recruitdb', $link);
+	if (!db_selected)
+	{
+		die ("Could not select db");
+	}
+} */
+function _dbConnect()
+{
+	$host = "10.1.2.73";
+	$username = "email";
+    $password = "em@il2013db";
+	$link = mysql_connect($host,$username,$password);
+	if (!$link)
+	{
+		die ("Could not connect");
+	}
+	$db_selected = mysql_select_db('emaildb', $link);
+	if (!$db_selected)
+	{
+		die ("Could not select db");
+	}
+}
+?>

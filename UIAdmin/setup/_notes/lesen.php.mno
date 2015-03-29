@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_rsUser" value="name:f142idakaun;datatype:int,name:f142username;datatype:string,name:f142password;datatype:string,name:f142email;datatype:string,name:f142Name;datatype:string,name:f142noIC;datatype:string,name:f142soalan;datatype:string,name:f142jawapan;datatype:string,name:f142idrole;datatype:int,name:f142idlevel;datatype:int,name:f142photo;datatype:string,name:f142catatan;datatype:string,name:f142thupdate;datatype:datetime,name:f142updateby;datatype:string,name:f142createby;datatype:string,name:f142ipadd;datatype:string" />
+	<infoitem key="UD_rsExam" value="name:f109examID;datatype:int,name:f109examKod;datatype:int,name:f109examDesc;datatype:string" />
+	<infoitem key="UD_rsLesen" value="name:f109IDlesen;datatype:int,name:f109kodlesen;datatype:string,name:f109kelaslesen;datatype:string" />
+</info>

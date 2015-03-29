@@ -1,0 +1,67 @@
+<?php include('Connections/conn-common.php'); ?>
+<?
+//Connection ke Pangkalan Data
+_dbConnect();
+
+// value sent from form
+$email_to=$_POST['txtEmail'];
+
+// table name
+$tbl_name=t142_akaun;
+
+// retrieve password from table where e-mail = $email_to(mark@phpeasystep.com)
+$sql="SELECT f142password FROM $tbl_name WHERE f142email='$email_to'";
+$result=mysql_query($sql);
+
+// if found this e-mail address, row must be 1 row
+// keep value in variable name "$count"
+$count=mysql_num_rows($result);
+
+// compare if $count =1 row
+if($count==1){
+
+$rows=mysql_fetch_array($result);
+
+// keep password in $your_password
+$your_password=md5($rows['f142password']);
+
+//$random_password=md5(uniqid(rand()));
+//$your_passwordd=substr($random_password, 0, 8);
+
+echo $your_password;
+
+// ---------------- SEND MAIL FORM ----------------
+
+// send e-mail to ...
+$to=$email_to;
+
+// Your subject
+$subject="[LUPA KATALALUAN]Universiti Pertahanan Nasional Malaysia";
+
+// From
+$header="from: infradc@upnm.edu.my";
+
+// Your message
+$messages= "Katalaluan untuk login \r\n";
+$messages.="Katalaluan anda ialah: $your_password \r\n";
+//$messages.="more message... \r\n";
+
+// send email
+  ini_set('SMTP', 'mail.upnm.edu.my');
+  $sentmail = mail($to,$subject,$messages,$header);
+}
+
+// else if $count not equal 1
+else {
+echo "Tiada rekod bagi email yang dimasukkan ";
+}
+
+// if your email succesfully sent
+if($sentmail){
+echo "Katalaluan baru telah dihantar ke email anda.";
+}
+else {
+echo "penghantaran katalaluan ke amil anda tidak berjaya";
+}
+
+?>

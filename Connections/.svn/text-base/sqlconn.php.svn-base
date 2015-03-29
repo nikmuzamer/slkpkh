@@ -1,0 +1,10 @@
+<?php
+# FileName="Connection_php_mysql.htm"
+# Type="MYSQL"
+# HTTP="true"
+$hostname_sqlconn = "10.1.2.73";
+$database_sqlconn = "emaildb";
+$username_sqlconn = "email";
+$password_sqlconn = "em@il2013db";
+$sqlconn = mysql_connect($hostname_sqlconn, $username_sqlconn, $password_sqlconn) or trigger_error(mysql_error(),E_USER_ERROR); 
+?>
